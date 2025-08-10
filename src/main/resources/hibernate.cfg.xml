@@ -1,0 +1,9 @@
+<hibernate-configuration>
+
+    <session-factory name="session-factory">
+
+        <property name="hibernate.dialect">org.hibernate.dialect.DB2Dialect</property>
+
+    </session-factory>
+
+</hibernate-configuration>
