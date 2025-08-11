@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prosta Aplikacja To-Do</title>
+    <title>To-Do List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -80,6 +80,58 @@
             font-style: italic;
             padding: 20px;
         }
+
+        
+        .actionBtn{
+            background: none;
+	        color: inherit;
+	        border: none;
+	        padding: 0;
+	        font: inherit;
+	        cursor: pointer;
+	        outline: inherit;
+        }
+
+        .editBtn{
+            background: none;
+	        color: inherit;
+	        border: none;
+	        padding: 0;
+	        font: inherit;
+	        cursor: pointer;
+	        outline: inherit;
+        }
+
+        .saveBtn{
+            background: none;
+	        color: inherit;
+	        border: none;
+	        padding: 0;
+	        font: inherit;
+	        cursor: pointer;
+	        outline: inherit;
+        }
+
+        .taskDescription{
+            font-size: larger;
+        }
+
+        .taskDescriptionEdit{
+            font-size: large;
+        }
+
+        .actionBtn:hover{
+            font-size: large;
+        }
+
+        .editBtn:hover{
+            font-size: large;
+        }
+
+        .saveBtn:hover{
+            font-size: large;
+        }
+
         
         
         
@@ -87,16 +139,45 @@
 </head>
 <body>
     <div class="todo-container">
-        <h1>Lista Zadań</h1>
+        <h1>TO DO LIST</h1>
         
-        <form class="add-todo" method="get" action="#">
-            <input type="text" name="new-todo" placeholder="Dodaj nowe zadanie..." required>
-            <button type="submit">Dodaj</button>
+        <form class="add-todo" method="post" action="/">
+            <input type="text" name="description" placeholder="Add new task..." required>
+            <button type="submit">Add</button>
         </form>
         
         <ul>
-    <li th:each="task : ${tasks}" th:text="${task.description}"></li>
-</ul>
+            <li th:each="task : ${tasks}">
+                <span th:text="${task.description}" class="taskDescription"></span>
+
+                <form th:action="@{/delete/{id}(id=${task.id})}" method="post" style="display:inline">
+                    <button type="submit" class="actionBtn">❌</button>
+                </form>
+
+                <form th:action="@{/edit/{id}(id=${task.id})}" method="post" class="editForm" style="display:none">
+                    <input type="text" class="taskDescriptionEdit" name="description" th:value="${task.description}" required>
+                    <button type="submit" class="saveBtn">✅</button>
+                </form>
+
+                <button type="submit" class="editBtn">✏️</button>
+                
+            </li>
+        </ul>
+        <script>
+            document.addEventListener("DOMContentLoaded",function()
+            {
+                document.querySelectorAll(".editBtn").forEach(function(btn){
+                    btn.addEventListener("click",function(){
+                        const li = btn.closest("li");
+                        li.querySelector(".taskDescription").style.display = "none";
+                        li.querySelector(".actionBtn").style.display = "none";
+                        li.querySelector(".editBtn").style.display = "none";
+                        li.querySelector(".editForm").style.display = "inline";
+                        btn.style.display = "none";
+                    });
+                });
+            });
+        </script>
     </div>
 </body>
 </html>

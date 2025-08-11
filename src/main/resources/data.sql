@@ -1,5 +1,8 @@
 INSERT INTO Task (description, completed)
-VALUES ('Opis zadania testowego', false);
+VALUES ('Test task one', false);
 
 INSERT INTO Task (description, completed)
-VALUES ('Kolejne zadanie', true);
+VALUES ('Test task two', true);
+
+INSERT INTO Task (description, completed)
+VALUES ('Test task three', true);
