@@ -17,7 +17,6 @@ public interface TaskRepository extends CrudRepository<Task,Long> {
     @Query("FROM Task")
     List<Task> findAll();
 
-    @Transactional
     @Modifying
     @Query("UPDATE Task SET description = :description WHERE id = :id")
     void update(@Param("description") String description, Long id);
